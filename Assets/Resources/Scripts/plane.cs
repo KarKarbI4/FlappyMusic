@@ -41,11 +41,19 @@ public class plane : MonoBehaviour {
     void processRotation() {
         Vector3 targetPos = getTargetPos();
         Vector3 aimDir = (targetPos - transform.position).normalized;
-        //Debug.DrawLine(transform.position, targetPos);
-        Debug.DrawRay(transform.position, aimDir);
-        Quaternion rotToTarget = Quaternion.LookRotation(aimDir, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.left) * Quaternion.AngleAxis(90, Vector3.back);
-        Debug.DrawRay(transform.position, rotToTarget * new Vector2(-1, 0), Color.green);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotToTarget, Time.deltaTime * rotSpeed);
+        Debug.DrawLine(transform.position, targetPos);
+        //Debug.DrawRay(transform.position, aimDir);
+        //Quaternion rotToTarget = Quaternion.LookRotation(aimDir, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.left) * Quaternion.AngleAxis(90, Vector3.back);
+        //Debug.DrawRay(transform.position, rotToTarget * new Vector2(-1, 0), Color.green);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, rotToTarget, Time.deltaTime * rotSpeed);
+
+        Vector3 vectorToTarget = targetPos - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotSpeed);
+
+        Debug.Log("targetPos" + targetPos);
+        
         //Quaternion mouseRot = Quaternion.AngleAxis(xrot, Vector3.left) * Quaternion.AngleAxis(-90, Vector3.forward) * Quaternion.LookRotation(Vector3.forward, target - transform.position);
         //if (reversed)
         //{
@@ -66,6 +74,7 @@ public class plane : MonoBehaviour {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         return mousePos;
+        //return new Vector3(100.0f, 120.0f, 0.0f);
     }
 
 	// Update is called once per frame
