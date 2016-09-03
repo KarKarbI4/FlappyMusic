@@ -11,6 +11,6 @@ public class birdController : plane {
         if (Input.GetKey(KeyCode.Mouse0)) {
             shoot();
         }
-        Debug.DrawRay(transform.position, transform.rotation * new Vector2(-1, 0) * 20, Color.cyan);
+        Debug.DrawRay(transform.position, transform.rotation * new Vector2(1, 0) * 20, Color.cyan);
     }
 }
