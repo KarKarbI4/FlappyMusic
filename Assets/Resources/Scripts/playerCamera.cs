@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerCamera : MonoBehaviour {
+public class PlayerCamera : MonoBehaviour {
 
 	public GameObject objToFollow;
     public float xOffset;
@@ -18,14 +18,10 @@ public class playerCamera : MonoBehaviour {
         {
             transform.position = new Vector3(objToFollow.transform.position.x + xOffset, transform.position.y, transform.position.z);
         }
-        
-
 	}
 
-    void Stop()
-    {
-        if (!stop)
-        {
+    void Stop() {
+        if (!stop) {
             transform.position -= new Vector3(0, 0, 0);
             stop = true;
         }
